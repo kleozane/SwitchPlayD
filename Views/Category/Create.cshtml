@@ -1,0 +1,18 @@
+﻿@model SwitchPlayD.Models.Category.CategoryForCreation
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-action="Create">
+
+    <label>Name</label> <br />
+    <input asp-for="Name" type="text"/> <br />
+    <span class="text-danger" asp-validation-for="Name"></span> <br />
+
+    <label>Description</label> <br />
+    <input asp-for="Description" type="text"/> <br />
+    <span class="text-danger" asp-validation-for="Description"></span> <br />
+
+    <button class="btn btn-primary">Create</button>
+
+</form>
