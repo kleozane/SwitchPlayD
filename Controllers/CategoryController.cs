@@ -14,6 +14,7 @@ namespace SwitchPlayD.Controllers
             _categoryService = categoryService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var categories = await _categoryService.GetCategoriesAsync();
@@ -46,6 +47,12 @@ namespace SwitchPlayD.Controllers
             }
         }
 
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _categoryService.DeleteCategory(id);
+            return RedirectToAction("Index");
+        }
 
     }
 }

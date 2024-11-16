@@ -1,18 +1,47 @@
 ﻿@model SwitchPlayD.Models.Category.CategoryForCreation
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form asp-action="Create">
-
-    <label>Name</label> <br />
-    <input asp-for="Name" type="text"/> <br />
-    <span class="text-danger" asp-validation-for="Name"></span> <br />
-
-    <label>Description</label> <br />
-    <input asp-for="Description" type="text"/> <br />
-    <span class="text-danger" asp-validation-for="Description"></span> <br />
-
-    <button class="btn btn-primary">Create</button>
-
-</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card strpied-tabled-with-hover">
+                <div class="card-header">
+                    <h4 class="card-title">Add new Category</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label>Name</label> <br />
+                                <input class="form-control" asp-for="Name" type="text" /> <br />
+                                <span class="text-danger" asp-validation-for="Name"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label>Description</label> <br />
+                                <textarea class="form-control" asp-for="Description" type="text" rows="5"> </textarea> <br />
+                                <span class="text-danger" asp-validation-for="Description"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <a class="btn btn-outline-primary" asp-action="Index"><i class="fa-solid fa-arrow-left"></i> Return</a>
+                        <button class="btn btn-primary float-right"><i class="fa-solid fa-floppy-disk"></i> Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
