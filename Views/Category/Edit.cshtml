@@ -1,0 +1,47 @@
+﻿@model SwitchPlayD.Models.Category.CategoryForModification
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card strpied-tabled-with-hover">
+                <div class="card-header">
+                    <h4 class="card-title">Edit @Model.Name</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label>Name</label> <br />
+                                <input class="form-control" asp-for="Name" type="text" /> <br />
+                                <span class="text-danger" asp-validation-for="Name"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label>Description</label> <br />
+                                <textarea class="form-control" asp-for="Description" type="text" rows="5"> </textarea> <br />
+                                <span class="text-danger" asp-validation-for="Description"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <a class="btn btn-outline-primary" asp-action="Index"><i class="fa-solid fa-arrow-left"></i> Return</a>
+                        <button class="btn btn-primary float-right"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

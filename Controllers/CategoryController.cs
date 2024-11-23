@@ -47,8 +47,40 @@ namespace SwitchPlayD.Controllers
             }
         }
 
+		[HttpGet]
+		public async Task<IActionResult> Edit(int id)
+		{
+            var category = await _categoryService.GetCategoryAsync(id);
+			var model = new CategoryForModification
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Description = category.Description
+            };
+			return View(model);
+		}
 
-        public async Task<IActionResult> Delete(int id)
+		[HttpPost]
+		public async Task<IActionResult> Edit(CategoryForModification model)
+		{
+			if (ModelState.IsValid)
+			{
+				Category cat = new Category
+				{
+                    Id = model.Id,
+					Name = model.Name,
+					Description = model.Description
+				};
+				await _categoryService.UpdateCategoryAsync(cat);
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				return View(model);
+			}
+		}
+
+		public async Task<IActionResult> Delete(int id)
         {
             await _categoryService.DeleteCategory(id);
             return RedirectToAction("Index");
