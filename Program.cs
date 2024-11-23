@@ -14,6 +14,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<PlatformRepository>();
+builder.Services.AddScoped<StudioRepository>();
 
 #endregion
 
@@ -22,6 +23,7 @@ builder.Services.AddScoped<PlatformRepository>();
 
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IPlatformService, PlatformService>();
+builder.Services.AddTransient<IStudioService, StudioService>();
 
 #endregion
 

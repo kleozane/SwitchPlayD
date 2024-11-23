@@ -14,19 +14,7 @@ namespace SwitchPlayD.Services.Concrete
             _platformRepository = platformRepository;
         }
 
-        public async Task CreatePlatformAsync(Platform platform)
-        {
-            await _platformRepository.AddAsync(platform);
-        }
-        public async Task EditPlatformAsync(Platform platform)
-        {
-             await _platformRepository.UpdateAsync(platform);
-        }
-        public async Task<Platform> GetPlatformAsync(int id)
-        {
-           return await _platformRepository.GetAsync(id);
-        }
-        public async Task<IEnumerable<Platform>> GetAllPlatformAsync()
+        public async Task<IEnumerable<Platform>> GetAllPlatformsAsync()
         {
             return await _platformRepository.GetAllAsync();
         }
