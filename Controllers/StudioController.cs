@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SwitchPlayD.Data;
+using SwitchPlayD.Migrations;
 using SwitchPlayD.Models.Category;
 using SwitchPlayD.Models.Studio;
 using SwitchPlayD.Services.Abstract;
+using SwitchPlayD.Services.Concrete;
 
 namespace SwitchPlayD.Controllers
 {
@@ -10,11 +12,13 @@ namespace SwitchPlayD.Controllers
 	{
 		private readonly IStudioService _studioService;
 		private readonly ICategoryService _categoryService;
+		private readonly IStudioCategoryService _studioCategoryService;
 
-		public StudioController(IStudioService studioService, ICategoryService categoryService)
+		public StudioController(IStudioService studioService, ICategoryService categoryService, IStudioCategoryService studioCategoryService)
 		{
 			_studioService = studioService;
 			_categoryService = categoryService;
+			_studioCategoryService = studioCategoryService;
 		}
 
 		[HttpGet]
@@ -38,21 +42,16 @@ namespace SwitchPlayD.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create(StudioForCreation model)
 		{
-			if (ModelState.IsValid)
+			Studio studio = new Studio
 			{
-				Studio studio = new Studio
-				{
-					Name = model.Name,
-					Description = model.Description,
-					Logo = model.Logo
-				};
-				await _studioService.CreateStudioAsync(studio);
-				return RedirectToAction("Index");
-			}
-			else
-			{
-				return View(model);
-			}
+				Name = model.Name,
+				Description = model.Description,
+				Logo = model.Logo
+			};
+			await _studioService.CreateStudioAsync(studio);
+			await _studioCategoryService.CreateStudioCategoryAsync(studio.Id, model.CategoryIds);
+
+			return RedirectToAction("Index");
 		}
 
 		//[HttpGet]

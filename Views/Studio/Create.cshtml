@@ -1,0 +1,79 @@
+﻿@model SwitchPlayD.Models.Studio.StudioForCreation
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card strpied-tabled-with-hover">
+                <div class="card-header">
+                    <h4 class="card-title">Add new Studio</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Name</label> <br />
+                                <input class="form-control" asp-for="Name" type="text" /> <br />
+                                <span class="text-danger" asp-validation-for="Name"></span> <br />
+                            </div>
+                            <div class="col-md-4">
+                                <label>Logo</label> <br />
+                                <input class="form-control" asp-for="Logo" type="file" /> <br />
+                                <span class="text-danger" asp-validation-for="Logo"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label>Categories</label> <br />
+                                <select asp-for="CategoryIds" class="form-control selectpicker" multiple data-live-search="true">
+                                    @foreach (var c in Model.Categories) {
+                                        <option value="@c.Id">@c.Name</option>
+                                    }
+                                </select>
+                                <span class="text-danger" asp-validation-for="Description"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label>Description</label> <br />
+                                <textarea class="form-control" asp-for="Description" type="text" rows="5"> </textarea> <br />
+                                <span class="text-danger" asp-validation-for="Description"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <a class="btn btn-outline-primary" asp-action="Index"><i class="fa-solid fa-arrow-left"></i> Return</a>
+                        <button class="btn btn-primary float-right"><i class="fa-solid fa-floppy-disk"></i> Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @* <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> *@
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script>
+        $('select').selectpicker();
+    </script>
+}

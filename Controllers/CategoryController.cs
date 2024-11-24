@@ -24,12 +24,12 @@ namespace SwitchPlayD.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new StudioForCreation();
+            var model = new CategoryForCreation();
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(StudioForCreation model)
+        public async Task<IActionResult> Create(CategoryForCreation model)
         {
             if (ModelState.IsValid)
             {
@@ -51,7 +51,7 @@ namespace SwitchPlayD.Controllers
 		public async Task<IActionResult> Edit(int id)
 		{
             var category = await _categoryService.GetCategoryAsync(id);
-			var model = new StudioForModification
+			var model = new CategoryForModification
             {
                 Id = category.Id,
                 Name = category.Name,
@@ -61,7 +61,7 @@ namespace SwitchPlayD.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(StudioForModification model)
+		public async Task<IActionResult> Edit(CategoryForModification model)
 		{
 			if (ModelState.IsValid)
 			{
