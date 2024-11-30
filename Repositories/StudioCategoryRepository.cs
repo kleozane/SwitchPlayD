@@ -12,7 +12,7 @@ namespace SwitchPlayD.Repositories
 
 		public async Task CreateStudioCategoryAsync(int studioId, List<int> categoryIds)
 		{
-			var sc = await _context.StudioCategories.ToListAsync();
+			var sc = await GetByStudioId(studioId);
 			_context.RemoveRange(sc);
 
 			if (categoryIds != null)

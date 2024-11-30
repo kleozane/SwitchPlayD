@@ -54,43 +54,50 @@ namespace SwitchPlayD.Controllers
 			return RedirectToAction("Index");
 		}
 
-		//[HttpGet]
-		//public async Task<IActionResult> Edit(int id)
-		//{
-		//	var category = await _categoryService.GetCategoryAsync(id);
-		//	var model = new StudioForModification
-		//	{
-		//		Id = category.Id,
-		//		Name = category.Name,
-		//		Description = category.Description
-		//	};
-		//	return View(model);
-		//}
+		[HttpGet]
+		public async Task<IActionResult> Edit(int id)
+		{
+			var studio = await _studioService.GetStudioAsync(id);
+			var categories = await _categoryService.GetCategoriesAsync();
+			var sc = await _studioCategoryService.GetByStudioId(id);
+			var model = new StudioForModification
+			{
+				Id = studio.Id,
+				Name = studio.Name,
+				Logo = studio.Logo,
+				Description = studio.Description,
+				Categories = categories,
+				SelectedCategories = sc
+			};
+			return View(model);
+		}
 
-		//[HttpPost]
-		//public async Task<IActionResult> Edit(StudioForModification model)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		Category cat = new Category
-		//		{
-		//			Id = model.Id,
-		//			Name = model.Name,
-		//			Description = model.Description
-		//		};
-		//		await _categoryService.UpdateCategoryAsync(cat);
-		//		return RedirectToAction("Index");
-		//	}
-		//	else
-		//	{
-		//		return View(model);
-		//	}
-		//}
+		[HttpPost]
+		public async Task<IActionResult> Edit(StudioForModification model)
+		{
+			if (ModelState.IsValid)
+			{
+				Studio studio = new Studio
+				{
+					Id = model.Id,
+					Name = model.Name,
+					Logo = model.Logo,
+					Description = model.Description
+				};
+				await _studioService.UpdateStudioAsync(studio);
+				await _studioCategoryService.CreateStudioCategoryAsync(studio.Id, model.CategoryIds);
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				return View(model);
+			}
+		}
 
-		//public async Task<IActionResult> Delete(int id)
-		//{
-		//	await _categoryService.DeleteCategory(id);
-		//	return RedirectToAction("Index");
-		//}
+		public async Task<IActionResult> Delete(int id)
+		{
+			await _studioService.DeleteStudio(id);
+			return RedirectToAction("Index");
+		}
 	}
 }
