@@ -26,6 +26,7 @@ builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IPlatformService, PlatformService>();
 builder.Services.AddTransient<IStudioService, StudioService>();
 builder.Services.AddTransient<IStudioCategoryService, StudioCategoryService>();
+builder.Services.AddTransient<IFileHandleService, FileHandleService>();
 
 #endregion
 

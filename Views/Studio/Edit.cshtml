@@ -13,7 +13,7 @@
                     <h4 class="card-title">Edit @Model.Name</h4>
                 </div>
                 <div class="card-body">
-                    <form asp-action="Edit">
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-2">
                             </div>
@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label>Logo</label> <br />
-                                <input class="form-control" asp-for="Logo" type="file" /> <br />
+                                <input value="@Model.Logo" class="form-control" asp-for="Logo" type="file" /> <br />
                                 <span class="text-danger" asp-validation-for="Logo"></span> <br />
                             </div>
                             <div class="col-md-2">

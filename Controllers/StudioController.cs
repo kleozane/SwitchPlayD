@@ -13,12 +13,16 @@ namespace SwitchPlayD.Controllers
 		private readonly IStudioService _studioService;
 		private readonly ICategoryService _categoryService;
 		private readonly IStudioCategoryService _studioCategoryService;
+		private readonly IConfiguration _configuration;
+		private readonly IFileHandleService _fileHandleService;
 
-		public StudioController(IStudioService studioService, ICategoryService categoryService, IStudioCategoryService studioCategoryService)
+		public StudioController(IStudioService studioService, ICategoryService categoryService, IStudioCategoryService studioCategoryService, IConfiguration configuration, IFileHandleService fileHandleService)
 		{
 			_studioService = studioService;
 			_categoryService = categoryService;
 			_studioCategoryService = studioCategoryService;
+			_configuration = configuration;
+			_fileHandleService = fileHandleService;
 		}
 
 		[HttpGet]
@@ -42,14 +46,26 @@ namespace SwitchPlayD.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create(StudioForCreation model)
 		{
+			var file = HttpContext.Request.Form.Files.FirstOrDefault();
+
 			Studio studio = new Studio
 			{
 				Name = model.Name,
 				Description = model.Description,
 				Logo = model.Logo
 			};
+
 			await _studioService.CreateStudioAsync(studio);
 			await _studioCategoryService.CreateStudioCategoryAsync(studio.Id, model.CategoryIds);
+
+			if (file != null)
+			{
+				var uploadDir = _configuration["Uploads:StudioLogos"];
+				var fileName = studio.Id + "_" + studio.Name;
+				fileName = await _fileHandleService.UploadAndRenameFileAsync(file, uploadDir, fileName);
+				studio.Logo = fileName;
+				await _studioService.UpdateStudioAsync(studio);
+			}
 
 			return RedirectToAction("Index");
 		}
@@ -77,13 +93,21 @@ namespace SwitchPlayD.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				Studio studio = new Studio
+				var file = HttpContext.Request.Form.Files.FirstOrDefault();
+				var studio = await _studioService.GetStudioAsync(model.Id);
+
+				studio.Id = model.Id;
+				studio.Name = model.Name;
+				studio.Description = model.Description;
+
+				if (file != null)
 				{
-					Id = model.Id,
-					Name = model.Name,
-					Logo = model.Logo,
-					Description = model.Description
-				};
+					var uploadDir = _configuration["Uploads:StudioLogos"];
+					var fileName = studio.Id + "_" + studio.Name;
+					fileName = await _fileHandleService.UploadAndRenameFileAsync(file, uploadDir, fileName);
+					studio.Logo = fileName;
+				}
+
 				await _studioService.UpdateStudioAsync(studio);
 				await _studioCategoryService.CreateStudioCategoryAsync(studio.Id, model.CategoryIds);
 				return RedirectToAction("Index");
@@ -96,6 +120,13 @@ namespace SwitchPlayD.Controllers
 
 		public async Task<IActionResult> Delete(int id)
 		{
+			var studio = await _studioService.GetStudioAsync(id);
+			if (studio.Logo != null)
+			{
+				var uploadDir = _configuration["Uploads:StudioLogos"];
+				_fileHandleService.RemoveImageFile(uploadDir, studio.Logo);
+			}
+
 			await _studioService.DeleteStudio(id);
 			return RedirectToAction("Index");
 		}
