@@ -7,5 +7,6 @@
         public string Description { get; set; }
 
 		public ICollection<StudioCategory> StudioCategories { get; set; }
+		public ICollection<GameCategory> GameCategories { get; set; }
 	}
 }
