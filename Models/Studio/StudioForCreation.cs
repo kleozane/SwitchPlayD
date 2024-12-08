@@ -13,7 +13,6 @@ namespace SwitchPlayD.Models.Studio
 		public string? Logo { get; set; }
 
 		public virtual IEnumerable<Data.Category> Categories { get; set; }
-
 		public List<int> CategoryIds { get; set; }
 	}
 }

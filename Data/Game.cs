@@ -10,7 +10,7 @@ namespace SwitchPlayD.Data
 		public double Size { get; set; }
 		public DateTime PublishDate { get; set; }
 		public double Price { get; set; }
-		public string Poster { get; set; }
+		public string? Poster { get; set; }
 
 		[ForeignKey("StudioId")]
 		public int StudioId { get; set; }

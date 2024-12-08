@@ -1,0 +1,133 @@
+﻿@model SwitchPlayD.Models.Game.GameForCreation
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card strpied-tabled-with-hover">
+                <div class="card-header">
+                    <h4 class="card-title">Add new Game</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Title</label> <br />
+                                <input class="form-control" asp-for="Title" type="text" /> <br />
+                                <span class="text-danger" asp-validation-for="Title"></span> <br />
+                            </div>
+                            <div class="col-md-4">
+                                <label>Poster</label> <br />
+                                <input class="form-control" asp-for="Poster" type="file" /> <br />
+                                <span class="text-danger" asp-validation-for="Poster"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Studios</label> <br />
+                                <select asp-for="StudioId" class="form-control selectpicker" data-live-search="true">
+                                    @foreach (var s in Model.Studios)
+                                    {
+                                        <option value="@s.Id">@s.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Publish Date</label> <br />
+                                <input type="date" class="form-control" id="releaseDate" asp-for="PublishDate" required />
+                                <span asp-validation-for="PublishDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Size</label> <br />
+                                <input class="form-control" asp-for="Size" type="number" /> <br />
+                                <span class="text-danger" asp-validation-for="Size"></span> <br />
+                            </div>
+                            <div class="col-md-4">
+                                <label>Price</label> <br />
+                                <input class="form-control" asp-for="Price" type="number" /> <br />
+                                <span class="text-danger" asp-validation-for="Price"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Categories</label> <br />
+                                <select asp-for="CategoryIds" class="form-control selectpicker" multiple data-live-search="true">
+                                    @foreach (var c in Model.Categories)
+                                    {
+                                        <option value="@c.Id">@c.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Platforms</label> <br />
+                                <select asp-for="PlatformIds" class="form-control selectpicker" multiple data-live-search="true">
+                                    @foreach (var p in Model.Platforms)
+                                    {
+                                        <option value="@p.Id">@p.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label>Description</label> <br />
+                                <textarea class="form-control" asp-for="Description" type="text" rows="5"> </textarea> <br />
+                                <span class="text-danger" asp-validation-for="Description"></span> <br />
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <a class="btn btn-outline-primary" asp-action="Index"><i class="fa-solid fa-arrow-left"></i> Return</a>
+                        <button class="btn btn-primary float-right"><i class="fa-solid fa-floppy-disk"></i> Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @* <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> *@
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+  
+    <script>
+        $('select').selectpicker();
+
+         flatpickr("#releaseDate", {
+            enableTime: false,
+            dateFormat: "d/m/Y",
+            locale: "ru", // Set the locale to handle the dd/mm/yyyy format
+            defaultDate: "today"
+        });
+    </script>
+}

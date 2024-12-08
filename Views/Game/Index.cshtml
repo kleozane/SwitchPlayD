@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SwitchPlayD.Data.Game>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card strpied-tabled-with-hover">
+                <div class="card-header">
+                    <h4 class="card-title">Game List</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-action="Create" asp-controller="Game" class="btn btn-primary float-right"><i class="fa-solid fa-plus"></i> Create</a>
+                        </div>
+                    </div>
+                    <br />
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Publish Date</th>
+                                <th>Game Size</th>
+                                <th>Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Title</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.PublishDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.Size</td>
+                                    <td>@item.Price</td>
+                                    <td class="float-right">
+                                        <a class="text-warning" title="Edit" asp-route-id="@item.Id" asp-action="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        &nbsp;
+                                        <a class="text-danger" title="Delete" asp-route-id="@item.Id" asp-action="Delete"><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
