@@ -78,5 +78,16 @@ namespace SwitchPlayD.Controllers
 
 			return RedirectToAction("Index");
 		}
-	}
+
+        public async Task<IActionResult> ApplyDiscount(int id, double discount)
+        {
+			var game = await _gameService.GetGameAsync(id);
+			game.Discount = discount;
+			await _gameService.UpdateGameAsync(game);
+
+
+
+            return RedirectToAction("Index");
+        }
+    }
 }

@@ -11,6 +11,7 @@ namespace SwitchPlayD.Data
 		public DateTime PublishDate { get; set; }
 		public double Price { get; set; }
 		public string? Poster { get; set; }
+		public double? Discount { get; set; }
 
 		[ForeignKey("StudioId")]
 		public int StudioId { get; set; }

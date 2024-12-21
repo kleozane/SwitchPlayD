@@ -29,6 +29,7 @@
                                 <th>Publish Date</th>
                                 <th>Game Size</th>
                                 <th>Price</th>
+                                <th>Total</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -37,16 +38,60 @@
                             {
                                 <tr>
                                     <td>@item.Title</td>
-                                    <td>@item.Description</td>
+                                    <td>
+                                        @if (item.Description.Length > 30)
+                                        {
+                                            <span data-toggle="tooltip" data-placement="top" title="@item.Description"><i>Hover Me</i></span>
+                                        }
+                                        else {
+                                            @item.Description
+                                        }
+                                        
+                                    </td>
                                     <td>@item.PublishDate.ToString("dd/MM/yyyy")</td>
                                     <td>@item.Size</td>
-                                    <td>@item.Price</td>
+                                    <td><span class="badge badge-primary">$@item.Price</span></td>
+                                    <td>
+                                        @if (item.Discount != null){
+                                            var total = item.Price - ((item.Price * item.Discount) / 100);
+                                            <span class="badge badge-success">$@total</span>
+                                        }
+                                        else {
+                                            <span class="badge badge-primary">$@item.Price</span>
+                                        }
+                                    </td>
                                     <td class="float-right">
                                         <a class="text-warning" title="Edit" asp-route-id="@item.Id" asp-action="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
                                         &nbsp;
                                         <a class="text-danger" title="Delete" asp-route-id="@item.Id" asp-action="Delete"><i class="fa-solid fa-trash"></i></a>
+                                        &nbsp;
+                                        <a style="cursor: pointer;" class="badge badge-success" title="Discount" data-toggle="modal" data-target="#discountModal-@item.Id"><i class="fa-solid fa-dollar-sign"></i></a>
                                     </td>
                                 </tr>
+
+                                <div class="modal fade" id="discountModal-@item.Id" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Add Discount @item.Title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form asp-action="ApplyDiscount">
+                                                <div class="modal-body">
+                                                    <div class="col-md-12">
+                                                        <label>Discount %</label> <br />
+                                                        <input class="form-control" name="discount" type="number" step="0.1" />
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" asp-action="ApplyDiscount" asp-route-id="@item.Id" class="btn btn-primary float-right"><i class="fa-solid fa-floppy-disk"></i> Apply</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             }
                         </tbody>
                     </table>

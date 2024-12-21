@@ -22,7 +22,9 @@ namespace SwitchPlayD.Models.Game
 		[Required(ErrorMessage = "Poster cannot be empty!")]
 		public string? Poster { get; set; }
 
-		public virtual IEnumerable<Data.Category> Categories { get; set; }
+        public double? Discount { get; set; }
+
+        public virtual IEnumerable<Data.Category> Categories { get; set; }
 		public List<int> CategoryIds { get; set; }
 
 		public virtual IEnumerable<Data.Platform> Platforms { get; set; }
