@@ -10,7 +10,10 @@ namespace SwitchPlayD.Models.Game
 		[Required(ErrorMessage = "Description cannot be empty!")]
 		public string Description { get; set; }
 
-		[Required(ErrorMessage = "Size cannot be empty!")]
+        [Required(ErrorMessage = "Magnet link cannot be empty!")]
+        public string MagnetLink { get; set; }
+
+        [Required(ErrorMessage = "Size cannot be empty!")]
 		public double Size { get; set; }
 
 		[Required(ErrorMessage = "Date cannot be empty!")]

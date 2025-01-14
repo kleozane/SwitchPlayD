@@ -57,6 +57,7 @@ namespace SwitchPlayD.Controllers
 			{
 				Title = model.Title,
 				Description = model.Description,
+				MagnetLink = model.MagnetLink,
 				Size = model.Size,
 				PublishDate = DateTime.ParseExact(model.PublishDate, "dd/MM/yyyy", null),
 				Price = model.Price,
@@ -84,8 +85,6 @@ namespace SwitchPlayD.Controllers
 			var game = await _gameService.GetGameAsync(id);
 			game.Discount = discount;
 			await _gameService.UpdateGameAsync(game);
-
-
 
             return RedirectToAction("Index");
         }

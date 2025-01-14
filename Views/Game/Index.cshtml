@@ -52,7 +52,7 @@
                                     <td>@item.Size</td>
                                     <td><span class="badge badge-primary">$@item.Price</span></td>
                                     <td>
-                                        @if (item.Discount != null){
+                                        @if (item.Discount != null && item.Discount != 0){
                                             var total = item.Price - ((item.Price * item.Discount) / 100);
                                             <span class="badge badge-success">$@total</span>
                                         }
@@ -61,11 +61,11 @@
                                         }
                                     </td>
                                     <td class="float-right">
-                                        <a class="text-warning" title="Edit" asp-route-id="@item.Id" asp-action="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        &nbsp;
                                         <a class="text-danger" title="Delete" asp-route-id="@item.Id" asp-action="Delete"><i class="fa-solid fa-trash"></i></a>
                                         &nbsp;
                                         <a style="cursor: pointer;" class="badge badge-success" title="Discount" data-toggle="modal" data-target="#discountModal-@item.Id"><i class="fa-solid fa-dollar-sign"></i></a>
+                                        &nbsp;
+                                        <a href="@item.MagnetLink" class="badge badge-primary" title="Download"><i class="fa-solid fa-download"></i></a>
                                     </td>
                                 </tr>
 
