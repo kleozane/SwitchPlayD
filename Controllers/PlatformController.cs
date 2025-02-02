@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SwitchPlayD.Services.Abstract;
 
 namespace SwitchPlayD.Controllers
 {
-	public class PlatformController : Controller
+    [Authorize]
+    public class PlatformController : Controller
 	{
-		private readonly IPlatformService _platformService;
+        private readonly IPlatformService _platformService;
 
 		public PlatformController(IPlatformService platformService)
 		{

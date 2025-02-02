@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SwitchPlayD.Data;
 using SwitchPlayD.Migrations;
 using SwitchPlayD.Models.Category;
@@ -8,7 +9,8 @@ using SwitchPlayD.Services.Concrete;
 
 namespace SwitchPlayD.Controllers
 {
-	public class StudioController : Controller
+    [Authorize(Roles = "moderator")]
+    public class StudioController : Controller
 	{
 		private readonly IStudioService _studioService;
 		private readonly ICategoryService _categoryService;

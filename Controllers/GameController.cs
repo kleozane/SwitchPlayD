@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SwitchPlayD.Data;
 using SwitchPlayD.Migrations;
 using SwitchPlayD.Models.Game;
@@ -6,7 +7,8 @@ using SwitchPlayD.Services.Abstract;
 
 namespace SwitchPlayD.Controllers
 {
-	public class GameController : Controller
+    [Authorize]
+    public class GameController : Controller
 	{
 		private readonly IGameService _gameService;
 		private readonly IGameCategoryService _gameCategoryService;
